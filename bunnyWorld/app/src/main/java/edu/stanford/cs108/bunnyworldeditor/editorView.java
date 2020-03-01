@@ -80,7 +80,7 @@ public class editorView extends View {
     // set variable here instead of in the onTouchEvent function to ensure they won't disappear every time we call this function
     float x = 0, y = 0;
     float left_start = 0, right_start = 0, top_start = 0, bottom_start = 0;
-
+    // hihi
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
