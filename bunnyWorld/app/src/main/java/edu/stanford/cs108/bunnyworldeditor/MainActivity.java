@@ -14,13 +14,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    // crate db
+    // create db
     public static SQLiteDatabase db; // instance variable on Activity
     String createGameTableStr = "CREATE TABLE Games ("
             + "game_name TEXT, "
@@ -72,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void initEditor() {
         this.currentEditGameID = 0;
         this.gameMap = new HashMap<Long, Game>();
+        this.gameMapStr = new HashMap<String, Game>();
     }
 
     /* Editor part"
@@ -88,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     // internal data structure
     static private long currentEditGameID;
     static private HashMap<Long, Game> gameMap;
+    static private HashMap<String, Game> gameMapStr;
 
     static public long getCurrentGameID() {
         return currentEditGameID;
@@ -120,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
                 // update
                 currentEditGameID = ID;
                 gameMap.put(ID, newGame);
+                
+                // use getGameName to avoid empty String
+                gameMapStr.put(newGame.getGameName(), newGame);
+
 
                 // Go to editGameActivity
                 // *** editGameActivity should only edit on currentGame ***
@@ -128,5 +141,78 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    public void onEditExistingGame(View view) {
+
+        LayoutInflater li = LayoutInflater.from(MainActivity.this);
+        final View promptsView = li.inflate(R.layout.activity_edit_existing_game, null);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+
+        TextView game_name = (TextView) promptsView.findViewById(R.id.game_name);
+        Cursor gamesCursor = db.rawQuery(
+                "SELECT * FROM Games;", null);
+
+        int[] gameIdx = {R.id.game1, R.id.game2, R.id.game3, R.id.game4, R.id.game5};
+        int i = 0;
+        while (gamesCursor.moveToNext()) {
+            RadioButton curButton = promptsView.findViewById(gameIdx[i]);
+            curButton.setText(gamesCursor.getString(0));
+            i++;
+
+        }
+
+        dialog.setTitle("Edit Existing Games");
+        dialog.setView(promptsView);
+        dialog.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                RadioGroup gamesGroup = promptsView.findViewById(R.id.gamesGroup);
+                int chosenGame = gamesGroup.getCheckedRadioButtonId();
+                RadioButton chosenButton = null;
+                switch(chosenGame) {
+                    case R.id.game1:
+                        chosenButton = promptsView.findViewById(R.id.game1);
+                        break;
+                    case R.id.game2:
+                        chosenButton = promptsView.findViewById(R.id.game2);
+                        break;
+                    case R.id.game3:
+                        chosenButton = promptsView.findViewById(R.id.game3);
+                        break;
+                    case R.id.game4:
+                        chosenButton = promptsView.findViewById(R.id.game4);
+                        break;
+                    case R.id.game5:
+                        chosenButton = promptsView.findViewById(R.id.game5);
+                        break;
+                }
+                String name = chosenButton.getText().toString();
+
+                // edit existing game
+                Game curGame = gameMapStr.get(name);
+                currentEditGameID = curGame.getGameID();
+
+                // Go to editGameActivity
+                // *** editGameActivity should only edit on currentGame ***
+                Intent intent = new Intent(MainActivity.this, editGameActivity.class);
+                startActivity(intent);
+            }
+        });
+        dialog.show();
+    }
+
+    public void onResetDataBase(View view) {
+        String dropGames = "DROP TABLE IF EXISTS Games;";
+        String dropPages = "DROP TABLE IF EXISTS Pages;";
+        String dropShapes = "DROP TABLE IF EXISTS Shapes;";
+        db.execSQL(dropGames);
+        db.execSQL(dropPages);
+        db.execSQL(dropShapes);
+        db.execSQL(createGameTableStr);
+        db.execSQL(createPageTableStr);
+        db.execSQL(createShapeTableStr);
+        Toast toast = Toast.makeText(MainActivity.this,"DataBase Reset", Toast.LENGTH_SHORT);
+        toast.show();
+        // System.out.println("Done");
     }
 }

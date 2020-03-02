@@ -34,6 +34,7 @@ public class editGameActivity extends AppCompatActivity {
 
         this.currentGameId = MainActivity.getCurrentGameID();
         this.currentGame = MainActivity.getGame(currentGameId);
+
         this.ev = findViewById(R.id.editorView);
         this.shapes = ev.shapes;
     }

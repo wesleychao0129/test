@@ -43,7 +43,7 @@ public class Game {
 
         // if name is empty, update database game_name = GAME_ID
         if (name.length() == 0) {
-            name = "GMAE_" + ID;
+            name = "GAME_" + ID;
             ContentValues update_value = new ContentValues();
             update_value.put("game_name", name);
             String selection = "game_id = ?";

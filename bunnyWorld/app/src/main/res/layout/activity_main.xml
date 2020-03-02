@@ -14,5 +14,16 @@
         android:layout_height="wrap_content"
         android:text="Create Game"
         android:onClick="onCreateGame"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Existing Game"
+        android:onClick="onEditExistingGame"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Database"
+        android:onClick="onResetDataBase"/>
+
 
 </LinearLayout>
