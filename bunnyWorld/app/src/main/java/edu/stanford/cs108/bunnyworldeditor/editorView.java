@@ -46,18 +46,18 @@ public class editorView extends View {
 
     // create constant inventory shapes
     private void createItemShapes() {
-        // use BitmapDrawable to construct Shape to avoid drawing with Null object
         ITEMSHAPES.add(new Shape(new RectF(0,700, 200, 900),
                 ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot))));
         ITEMSHAPES.add(new Shape(new RectF(200,700, 400, 900),
                 ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot2))));
         ITEMSHAPES.add(new Shape(new RectF(400,700, 600, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.death))));
-        ITEMSHAPES.add(new Shape(new RectF(600,700, 800, 900),
                 ((BitmapDrawable) getResources().getDrawable(R.drawable.evilbunny))));
-        ITEMSHAPES.add(new Shape(new RectF(800,700, 1000, 900),
+        ITEMSHAPES.add(new Shape(new RectF(600,700, 800, 900),
                 ((BitmapDrawable) getResources().getDrawable(R.drawable.duck))));
-
+        ITEMSHAPES.add(new Shape(new RectF(800,700, 1000, 900),
+                ((BitmapDrawable) getResources().getDrawable(R.drawable.fire))));
+        ITEMSHAPES.add(new Shape(new RectF(1000,700, 1200, 900),
+                ((BitmapDrawable) getResources().getDrawable(R.drawable.mystic))));
     }
 
 
@@ -72,15 +72,10 @@ public class editorView extends View {
         curPage.drawPage(canvas);
     }
 
-    // detect motion down drag and draw movable
-//    private boolean isInventory() {
-//
-//    }
-
     // set variable here instead of in the onTouchEvent function to ensure they won't disappear every time we call this function
     float x = 0, y = 0;
     float left_start = 0, right_start = 0, top_start = 0, bottom_start = 0;
-    // hihi
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -103,7 +98,7 @@ public class editorView extends View {
 
 
                     if (x <= right && x >= left && y >= top && y <= bottom) {
-                        if (x >= 0 && x <= 1000 && y <= 900 && y >= 700 && i < Possession.itemsNum) {
+                        if (x >= 0 && x <= 1200 && y <= 900 && y >= 700 && i < Possession.itemsNum) {
                             // if is in inventory
                             chosenShape = new Shape(new RectF(curShapes.get(i).getDim()), curShapes.get(i).getBitmapDrawable());
                             chosenShape.getDim().bottom = chosenShape.getDim().bottom - 200;
@@ -122,7 +117,6 @@ public class editorView extends View {
                 }
                 if (addToCurrentPage && !movable) {
                     curShapes.add(chosenShape);
-                    System.out.println(curShapes.size());
                     invalidate();
                 }
                 break;

@@ -10,10 +10,8 @@ public class Possession {
 
     }
     public void loadItemShapes(ArrayList<Shape> shapes) {
-
         this.ITEMSHAPES = shapes;
         this.itemsNum = shapes.size();
     }
-
 
 }

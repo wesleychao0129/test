@@ -19,28 +19,32 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CREATE PAGE"/>
+            android:text="SET PROPERTY"
+            android:onClick="handleSetProperty"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GOTO PAGE"/>
+            android:text="SET SCRIPT"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAVE PAGE"/>
+            android:text="COPY"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DELETE PAGE"/>
+            android:text="PASTE"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RENAME PAGE"/>
+            android:text="DELETE"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CLEAR PAGE"/>
-
+            android:text="CLEAR"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UNDO"/>
     </LinearLayout>
 
 </RelativeLayout>

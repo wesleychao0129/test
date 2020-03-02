@@ -14,35 +14,34 @@ public class Shape {
     // draw
     //
 
-//    public Shape(Shape shape) {
-//        Shape(shape.getDim(), shape.getBitmap());
-//    }
     public Shape(RectF dim, BitmapDrawable bitmapDrawable) {
         this.dim = dim;
         this.bitmapDrawable = bitmapDrawable;
         this.bitmap = bitmapDrawable.getBitmap();
     }
 
-    public Shape(RectF dim, Bitmap bitmap) {
-        this.dim = dim;
-        this.bitmap = bitmap;
-    }
+//    public Shape(RectF dim, Bitmap bitmap) {
+//        this.dim = dim;
+//        this.bitmap = bitmap;
+//    }
 
     public String getName() {
         return name;
     }
+
     public RectF getDim() {
         return dim;
     }
+
     public Bitmap getBitmap() {
         return bitmapDrawable.getBitmap();
     }
+
     public BitmapDrawable getBitmapDrawable() {
         return bitmapDrawable;
     }
-    public void draw(Canvas canvas) {
-        System.out.println("Done");
 
+    public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dim, null);
     }
 
