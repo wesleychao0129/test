@@ -62,6 +62,7 @@ public class Page {
         this.page_id = ID;
         this.game_id = game_id;
         this.page_name = page_name;
+        this.shapes = new ArrayList<Shape>(Inventory.ITEMSHAPES);
 //        shapes = new HashMap<Long, Page>();
     }
 

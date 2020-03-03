@@ -24,7 +24,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SET SCRIPT"/>
+            android:text="SET SCRIPT"
+            android:onClick="handleSetScript"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

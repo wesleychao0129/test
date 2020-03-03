@@ -25,8 +25,9 @@ public class editGameActivity extends AppCompatActivity {
 
     private long currentGameId;;
     private Game currentGame;
+    private Page currentPage;
     editorView ev;
-    ArrayList<Shape> shapes;
+    // ArrayList<Shape> curShapes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class editGameActivity extends AppCompatActivity {
         this.currentGame = MainActivity.getGame(currentGameId);
 
         this.ev = findViewById(R.id.editorView);
-        this.shapes = ev.shapes;
+        // this.curShapes = ev.curShapes;
     }
 
     @Override
@@ -51,6 +52,7 @@ public class editGameActivity extends AppCompatActivity {
 
         Page newPage = new Page(currentGameId, "");
         currentGame.addPage(newPage);
+        ev.invalidate();
 
         Toast toast = Toast.makeText(getApplicationContext(), "A new page is created!", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -83,14 +85,53 @@ public class editGameActivity extends AppCompatActivity {
         LayoutInflater li = LayoutInflater.from(editGameActivity.this);
         View promptsView = li.inflate(R.layout.activity_set_property, null);
         AlertDialog.Builder dialog = new AlertDialog.Builder(editGameActivity.this);
-        dialog.setTitle("Set Shape Property");
         dialog.setView(promptsView);
-        Spinner image_spinner = (Spinner) promptsView.findViewById(R.id.image_spinner);
-        String[] images = {"carrot1", "carrot2", "evil bunny", "duck", "fire", "mystic bunny"};
-        ArrayAdapter<String> imageList = new ArrayAdapter<String>(editGameActivity.this,
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+        dialog.show();
+    }
+
+    public void handleSetScript(View view) {
+        LayoutInflater li = LayoutInflater.from(editGameActivity.this);
+        View promptsView = li.inflate(R.layout.activity_set_script, null);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(editGameActivity.this);
+        dialog.setView(promptsView);
+        Spinner trigger_spinner = (Spinner) promptsView.findViewById(R.id.trigger);
+        String[] triggers = {"on click", "on enter", "on drop"};
+        ArrayAdapter<String> triggerList = new ArrayAdapter<String>(editGameActivity.this,
                 android.R.layout.simple_spinner_dropdown_item,
-                images);
-        image_spinner.setAdapter(imageList);
+                triggers);
+        trigger_spinner.setAdapter(triggerList);
+
+        Spinner shape_spinner = (Spinner) promptsView.findViewById(R.id.onDropShape);
+        String[] shapes = {"no shape", "shape1", "shape2", "shape3"};
+        ArrayAdapter<String> shapeList = new ArrayAdapter<String>(editGameActivity.this,
+                android.R.layout.simple_spinner_dropdown_item,
+                shapes);
+        shape_spinner.setAdapter(shapeList);
+
+        Spinner action_spinner = (Spinner) promptsView.findViewById(R.id.action);
+        String[] actions = {"go to", "play", "hide", "show"};
+        ArrayAdapter<String> actionList = new ArrayAdapter<String>(editGameActivity.this,
+                android.R.layout.simple_spinner_dropdown_item,
+                actions);
+        action_spinner.setAdapter(actionList);
+
+        Spinner modifier_spinner = (Spinner) promptsView.findViewById(R.id.modifier);
+        String[] modifiers = {"page1", "page2", "page3", "page4", "page5"};
+        ArrayAdapter<String> modifierList = new ArrayAdapter<String>(editGameActivity.this,
+                android.R.layout.simple_spinner_dropdown_item,
+                modifiers);
+        modifier_spinner.setAdapter(modifierList);
+
+        dialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User cancelled the dialog

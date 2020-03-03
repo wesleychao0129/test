@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Shape Property - " />
+            android:text="Add Script - " />
 
         <TextView
             android:id="@+id/imageName"
@@ -32,10 +32,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shape Name: " />
+            android:text="Trigger: " />
 
-        <EditText
-            android:id="@+id/shapeName"
+        <Spinner
+            android:id="@+id/trigger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="On Drop Shape: " />
+
+        <Spinner
+            android:id="@+id/onDropShape"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -50,10 +62,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Left: " />
+            android:text="Action: " />
 
-        <EditText
-            android:id="@+id/leftX"
+        <Spinner
+            android:id="@+id/action"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -61,65 +73,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top: " />
+            android:text="Action's Modifier: " />
 
-        <EditText
-            android:id="@+id/topY"
+        <Spinner
+            android:id="@+id/modifier"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Append"
+        android:onClick="onAppendSript"/>
+
+    <EditText
+        android:id="@+id/currentScript"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Width: " />
-
-        <EditText
-            android:id="@+id/widthW"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Height: " />
-
-        <EditText
-            android:id="@+id/heightH"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <Switch
-        android:id="@+id/movable"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="Movable:     "
-        android:textOn="On"
-        android:textOff="Off"
-        android:showText="true" />
-
-
-    <Switch
-        android:id="@+id/hidden"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="Hidden:     "
-        android:textOn="On"
-        android:textOff="Off"
-        android:showText="true" />
+        android:layout_gravity="center"
+        android:text="Reset"
+        android:onClick="onResetSript"/>
 
 
 </LinearLayout>

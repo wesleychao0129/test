@@ -1,18 +1,14 @@
 package edu.stanford.cs108.bunnyworldeditor;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.app.Activity;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class editorView extends View {
@@ -26,20 +22,32 @@ public class editorView extends View {
     // detect touch motion
 //    HashMap<String, ArrayList<Shape>> pageMap = new HashMap<String, ArrayList<Shape>>();
 
-    ArrayList<Shape> shapes = new ArrayList<Shape>();
     ArrayList<Shape> curShapes = new ArrayList<Shape>();
+    Game curGame;
     Page curPage;
     Shape chosenShape;
-    Possession possession = new Possession();
+
+    Inventory inventory = new Inventory();
     ArrayList<Shape> ITEMSHAPES = new ArrayList<Shape>();
-    boolean movable = false;
-    boolean addToCurrentPage = false;
+
 
     // set up (load and create shapes for possession and load and draw new page)
     private void init() {
+        System.out.println("FUCKKK");
         createItemShapes();
-        possession.loadItemShapes(new ArrayList<Shape>(ITEMSHAPES));
-        loadNewPage();
+        inventory.loadItemShapes(new ArrayList<Shape>(ITEMSHAPES));
+        long ID = MainActivity.getCurrentGameID();
+        curGame = MainActivity.getGame(ID);
+        if (curGame.getCurrentPage() == null) {
+            Page newPage = new Page(ID, "");
+            curGame.addPage(newPage);
+        }
+
+        //loadNewPage();
+
+
+
+        // curPage = curGame.getCurrentPage();
 
 
     }
@@ -60,15 +68,15 @@ public class editorView extends View {
                 ((BitmapDrawable) getResources().getDrawable(R.drawable.mystic))));
     }
 
-
-    private void loadNewPage() {
-        curPage = new Page(new ArrayList<Shape>(Possession.ITEMSHAPES));
-    }
+//    public static void loadNewPage() {
+//        curPage = new Page(new ArrayList<Shape>(Inventory.ITEMSHAPES));
+//    }
 
     // override onDraw function
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        curPage = curGame.getCurrentPage();
         curPage.drawPage(canvas);
     }
 
@@ -83,8 +91,6 @@ public class editorView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
-                movable = false;
-                addToCurrentPage = false;
                 x = event.getX();
                 y = event.getY();
 
@@ -95,33 +101,27 @@ public class editorView extends View {
                     float right = curShapes.get(i).getDim().right;
                     float top = curShapes.get(i).getDim().top;
                     float bottom = curShapes.get(i).getDim().bottom;
-
-
                     if (x <= right && x >= left && y >= top && y <= bottom) {
-                        if (x >= 0 && x <= 1200 && y <= 900 && y >= 700 && i < Possession.itemsNum) {
-                            // if is in inventory
-                            chosenShape = new Shape(new RectF(curShapes.get(i).getDim()), curShapes.get(i).getBitmapDrawable());
-                            chosenShape.getDim().bottom = chosenShape.getDim().bottom - 200;
-                            chosenShape.getDim().top = chosenShape.getDim().top - 200;
-                            addToCurrentPage = true;
-                        } else { // not in inventory
-                            chosenShape = curShapes.get(i);
-                            left_start = curShapes.get(i).getDim().left;
-                            right_start = curShapes.get(i).getDim().right;
-                            top_start = curShapes.get(i).getDim().top;
-                            bottom_start = curShapes.get(i).getDim().bottom;
-                            movable = true;
-                        }
-
+                        chosenShape = curShapes.get(i);
                     }
                 }
-                if (addToCurrentPage && !movable) {
-                    curShapes.add(chosenShape);
-                    invalidate();
+                if (chosenShape != null) {
+                    if (chosenShape.getIsInventory()) {
+                        chosenShape = new Shape(new RectF(chosenShape.getDim()), chosenShape.getBitmapDrawable());
+                        chosenShape.getDim().bottom = chosenShape.getDim().bottom - 200;
+                        chosenShape.getDim().top = chosenShape.getDim().top - 200;
+                        curShapes.add(chosenShape);
+                        invalidate();
+                    } else {
+                        left_start = chosenShape.getDim().left;
+                        right_start = chosenShape.getDim().right;
+                        top_start = chosenShape.getDim().top;
+                        bottom_start = chosenShape.getDim().bottom;
+                    }
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (movable) {
+                if (chosenShape != null && chosenShape.getMovable()) {
                     float x_ = 0, y_ = 0, dx = 0, dy = 0;
                     x_ = event.getX();
                     y_ = event.getY();

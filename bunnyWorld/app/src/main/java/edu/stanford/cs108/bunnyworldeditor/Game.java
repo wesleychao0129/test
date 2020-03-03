@@ -16,7 +16,7 @@ public class Game {
     // Database field
     private long game_id;
     private String game_name;
-
+    private Page currentPage;
     // internal data structure
     private HashMap<Long, Page> pageMap;
 //    private ArrayList<Page> pages;
@@ -63,6 +63,7 @@ public class Game {
         this.game_id = ID;
         this.game_name = name;
         pageMap = new HashMap<Long, Page>();
+        currentPage = null;
 //        pages = new ArrayList<Page>();
     }
 
@@ -81,8 +82,13 @@ public class Game {
     public void addPage(Page page) {
         long ID = page.getPageID();
         pageMap.put(ID, page);
+        currentPage = page;
     }
 
+    // get currentPage
+    public Page getCurrentPage() {
+        return currentPage;
+    }
     public void removePage(long ID){
 
     }

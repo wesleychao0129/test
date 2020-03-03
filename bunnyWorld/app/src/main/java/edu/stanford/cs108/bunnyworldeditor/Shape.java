@@ -11,6 +11,9 @@ public class Shape {
     private RectF dim;
     private BitmapDrawable bitmapDrawable;
     private Bitmap bitmap;
+    private boolean movable;
+    private boolean hidden;
+    private boolean isInventory;
     // draw
     //
 
@@ -18,12 +21,10 @@ public class Shape {
         this.dim = dim;
         this.bitmapDrawable = bitmapDrawable;
         this.bitmap = bitmapDrawable.getBitmap();
+        this.movable = true;
+        this.hidden = false;
+        this.isInventory = false;
     }
-
-//    public Shape(RectF dim, Bitmap bitmap) {
-//        this.dim = dim;
-//        this.bitmap = bitmap;
-//    }
 
     public String getName() {
         return name;
@@ -31,6 +32,14 @@ public class Shape {
 
     public RectF getDim() {
         return dim;
+    }
+
+    public boolean getIsInventory() {
+        return isInventory;
+    }
+
+    public boolean getMovable() {
+        return movable;
     }
 
     public Bitmap getBitmap() {
@@ -44,5 +53,21 @@ public class Shape {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dim, null);
     }
+
+    // set movable value for shape
+    public void setMovable(boolean val) {
+        movable = val;
+    }
+
+    // set hidden value for shape
+    public void setHidden(boolean val) {
+        hidden = val;
+    }
+
+    // set isInventory value for shape
+    public void setIsInventory(boolean val) {
+        isInventory = val;
+    }
+
 
 }
