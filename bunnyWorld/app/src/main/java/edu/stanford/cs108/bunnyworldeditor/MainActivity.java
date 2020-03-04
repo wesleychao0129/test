@@ -3,23 +3,16 @@ package edu.stanford.cs108.bunnyworldeditor;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -214,5 +207,10 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(MainActivity.this,"DataBase Reset", Toast.LENGTH_SHORT);
         toast.show();
         // System.out.println("Done");
+    }
+
+    public void onBeginDefaultGame(View view) {
+        Intent intent = new Intent(this, PlayerActivity.class);
+        startActivity(intent);
     }
 }
