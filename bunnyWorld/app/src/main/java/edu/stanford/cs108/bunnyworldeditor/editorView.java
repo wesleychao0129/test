@@ -55,17 +55,17 @@ public class editorView extends View {
     // create constant inventory shapes
     private void createItemShapes() {
         ITEMSHAPES.add(new Shape(new RectF(0,700, 200, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot))));
+                (BitmapDrawable) getResources().getDrawable(R.drawable.carrot), "Carrot"));
         ITEMSHAPES.add(new Shape(new RectF(200,700, 400, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot2))));
+                (BitmapDrawable) getResources().getDrawable(R.drawable.carrot2), "Carrot2"));
         ITEMSHAPES.add(new Shape(new RectF(400,700, 600, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.evilbunny))));
+                (BitmapDrawable) getResources().getDrawable(R.drawable.evilbunny), "Evil Bunny"));
         ITEMSHAPES.add(new Shape(new RectF(600,700, 800, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.duck))));
+                (BitmapDrawable) getResources().getDrawable(R.drawable.duck), "Duck"));
         ITEMSHAPES.add(new Shape(new RectF(800,700, 1000, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.fire))));
+                (BitmapDrawable) getResources().getDrawable(R.drawable.fire), "Fire"));
         ITEMSHAPES.add(new Shape(new RectF(1000,700, 1200, 900),
-                ((BitmapDrawable) getResources().getDrawable(R.drawable.mystic))));
+                (BitmapDrawable) getResources().getDrawable(R.drawable.mystic), "Mystic Bunny"));
     }
 
 //    public static void loadNewPage() {
@@ -107,9 +107,10 @@ public class editorView extends View {
                 }
                 if (chosenShape != null) {
                     if (chosenShape.getIsInventory()) {
-                        chosenShape = new Shape(new RectF(chosenShape.getDim()), chosenShape.getBitmapDrawable());
+                        chosenShape = new Shape(new RectF(chosenShape.getDim()), chosenShape.getBitmapDrawable(), chosenShape.getImageName());
                         chosenShape.getDim().bottom = chosenShape.getDim().bottom - 200;
                         chosenShape.getDim().top = chosenShape.getDim().top - 200;
+                        chosenShape.setName("Shape" + String.valueOf(curShapes.size() - Inventory.ITEMSHAPES.size() + 1));
                         curShapes.add(chosenShape);
                         invalidate();
                     } else {

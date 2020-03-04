@@ -15,12 +15,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Script - " />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Add Script To " />
 
         <TextView
-            android:id="@+id/imageName"
+            android:id="@+id/shapeName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
 
     </LinearLayout>
 

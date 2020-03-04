@@ -8,6 +8,7 @@ import android.content.Context;
 
 public class Shape {
     private String name;
+    private String imageName;
     private RectF dim;
     private BitmapDrawable bitmapDrawable;
     private Bitmap bitmap;
@@ -17,8 +18,9 @@ public class Shape {
     // draw
     //
 
-    public Shape(RectF dim, BitmapDrawable bitmapDrawable) {
+    public Shape(RectF dim, BitmapDrawable bitmapDrawable, String imageName) {
         this.dim = dim;
+        this.imageName = imageName;
         this.bitmapDrawable = bitmapDrawable;
         this.bitmap = bitmapDrawable.getBitmap();
         this.movable = true;
@@ -28,6 +30,10 @@ public class Shape {
 
     public String getName() {
         return name;
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 
     public RectF getDim() {
@@ -42,6 +48,10 @@ public class Shape {
         return movable;
     }
 
+    public boolean getHidden() {
+        return hidden;
+    }
+
     public Bitmap getBitmap() {
         return bitmapDrawable.getBitmap();
     }
@@ -52,6 +62,10 @@ public class Shape {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dim, null);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     // set movable value for shape

@@ -104,9 +104,9 @@ public class Page {
     }
 
     // add shape
-    public void addShape(RectF dim, BitmapDrawable bd) {
-        shapes.add(new Shape(dim, bd));
-    }
+    // public void addShape(RectF dim, BitmapDrawable bd) {
+    //    shapes.add(new Shape(dim, bd));
+    // }
 
     // remove shape
     public void removeShape() {
