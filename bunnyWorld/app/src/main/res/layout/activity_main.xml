@@ -15,11 +15,27 @@
         android:layout_height="wrap_content"
         android:text="Create Game"
         android:onClick="onCreateGame"/>
-    <Button
+    <GridLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Existing Game"
-        android:onClick="onEditExistingGame"/>
+        android:layout_gravity="left" >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Existing Game"
+            android:onClick="onEditExistingGame"/>
+        <Spinner
+            android:id="@+id/edit_games_spinner"
+            android:background="#D0ECE7"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </GridLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +46,27 @@
         android:layout_height="wrap_content"
         android:text="Begin Default Game"
         android:onClick="onBeginDefaultGame"/>
+    <GridLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left" >
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/load_saved_game_button"
+            android:text="Load Saved Games"
+            android:onClick="onLoadSavedGames" />
+        <Spinner
+            android:id="@+id/saved_games_spinner"
+            android:background="#D0ECE7"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </GridLayout>
 
 
 </LinearLayout>
